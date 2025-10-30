@@ -1,24 +1,25 @@
-<h2 class="text-lg font-semibold mb-3">Edit Workout</h2>
-<form method="post" action="/workouts/<%= workout.id %>" class="bg-white rounded shadow-sm border p-4 max-w-md space-y-3">
+<h2 class="text-xl font-semibold mb-4">Edit Workout</h2>
+<form method="post" action="/workouts/<%= workout.id %>" class="max-w-xl rounded-2xl border border-indigo-100/70 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-5 shadow-soft space-y-4">
   <div>
-    <label class="block text-sm">Date</label>
-    <input type="date" name="date" value="<%= new Date(workout.date).toISOString().slice(0,10) %>" required class="mt-1 w-full border rounded px-3 py-2" />
+    <label class="block text-sm text-gray-600 dark:text-gray-400">Date</label>
+    <input type="date" name="date" value="<%= new Date(workout.date).toISOString().slice(0,10) %>" required class="mt-1 w-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" />
   </div>
   <div>
-    <label class="block text-sm">Type</label>
-    <input type="text" name="type" value="<%= workout.type %>" required class="mt-1 w-full border rounded px-3 py-2" />
+    <label class="block text-sm text-gray-600 dark:text-gray-400">Type</label>
+    <input type="text" name="type" value="<%= workout.type %>" required class="mt-1 w-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+    <p class="mt-1 text-xs text-gray-500">Keep it short and descriptive.</p>
   </div>
   <div>
-    <label class="block text-sm">Duration (minutes)</label>
-    <input type="number" min="1" name="duration" value="<%= workout.duration %>" required class="mt-1 w-full border rounded px-3 py-2" />
+    <label class="block text-sm text-gray-600 dark:text-gray-400">Duration (minutes)</label>
+    <input type="number" min="1" name="duration" value="<%= workout.duration %>" required class="mt-1 w-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500" />
   </div>
   <div>
-    <label class="block text-sm">Notes</label>
-    <textarea name="notes" rows="3" class="mt-1 w-full border rounded px-3 py-2"><%= workout.notes || '' %></textarea>
+    <label class="block text-sm text-gray-600 dark:text-gray-400">Notes</label>
+    <textarea name="notes" rows="3" class="mt-1 w-full border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-500"><%= workout.notes || '' %></textarea>
   </div>
   <div class="pt-2 flex gap-2">
-    <button class="px-4 py-2 rounded bg-blue-600 text-white">Update</button>
-    <a href="/" class="px-4 py-2 rounded border">Cancel</a>
+    <button class="px-4 py-2 rounded-lg bg-brand-600 text-white hover:bg-brand-700 shadow-soft">Update</button>
+    <a href="/" class="px-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">Cancel</a>
   </div>
   </form>
 

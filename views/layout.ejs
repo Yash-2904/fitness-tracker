@@ -1,22 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fitness Tracker</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🏋️</text></svg>">
+    <script>
+      window.tailwind = { config: { darkMode: 'class' } };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+                400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81'
+              }
+            },
+            boxShadow: {
+              soft: '0 10px 25px -10px rgba(79,70,229,0.25)'
+            }
+          }
+        }
+      };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      ::-webkit-scrollbar { width: 10px; height: 10px; }
+      ::-webkit-scrollbar-thumb { background: rgba(100,116,139,.5); border-radius: 9999px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+    </style>
+    <script>
+      (function() {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (stored === 'dark' || (!stored && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-gray-50 text-gray-900">
-    <nav class="bg-white border-b shadow-sm">
-      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="/" class="text-xl font-semibold">Fitness Tracker</a>
-        <a href="/workouts/new" class="px-3 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700">Add Workout</a>
+  <body class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-blue-50 text-gray-900 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900 dark:text-gray-100">
+    <nav class="sticky top-0 z-30 backdrop-blur bg-white/70 dark:bg-gray-900/60 border-b border-indigo-100/50 dark:border-gray-800">
+      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2 text-xl font-semibold">
+          <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-brand-600 text-white shadow-soft">🏋️</span>
+          <span>Fitness Tracker</span>
+        </a>
+        <div class="flex items-center gap-2">
+          <button id="themeToggle" class="px-3 py-1.5 rounded border border-gray-200 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800" aria-label="Toggle theme">
+            <span class="block dark:hidden">🌙</span>
+            <span class="hidden dark:block">☀️</span>
+          </button>
+          <a href="/workouts/new" class="px-3 py-1.5 rounded bg-brand-600 text-white hover:bg-brand-700 shadow-soft">Add Workout</a>
+        </div>
       </div>
     </nav>
-    <main class="max-w-5xl mx-auto px-4 py-6">
+    <header class="max-w-6xl mx-auto px-4 pt-8">
+      <div class="rounded-2xl border border-indigo-100/70 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-6 shadow-soft">
+        <h1 class="text-2xl font-bold tracking-tight">Your Activity Dashboard</h1>
+        <p class="mt-1 text-gray-600 dark:text-gray-400">Log workouts, track progress, and stay consistent.</p>
+      </div>
+    </header>
+    <main class="max-w-6xl mx-auto px-4 py-6">
       <%- body %>
     </main>
+    <footer class="max-w-6xl mx-auto px-4 pb-10 text-sm text-gray-500 dark:text-gray-400">
+      <div class="border-t border-indigo-100/70 dark:border-gray-800 pt-6">Made with ❤️ and discipline.</div>
+    </footer>
+    <script>
+      document.getElementById('themeToggle')?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const isDark = root.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+    </script>
   </body>
   </html>
 
