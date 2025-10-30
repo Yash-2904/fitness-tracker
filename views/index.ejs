@@ -1,0 +1,68 @@
+<section class="grid md:grid-cols-2 gap-8">
+  <div>
+    <h2 class="text-lg font-semibold mb-3">Workouts</h2>
+    <div class="bg-white rounded shadow-sm border">
+      <table class="min-w-full text-sm">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="text-left px-4 py-2">Date</th>
+            <th class="text-left px-4 py-2">Type</th>
+            <th class="text-left px-4 py-2">Duration</th>
+            <th class="px-4 py-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (workouts.length === 0) { %>
+            <tr><td colspan="4" class="px-4 py-4 text-gray-500">No workouts yet. Add one!</td></tr>
+          <% } %>
+          <% workouts.forEach(w => { %>
+            <tr class="border-t">
+              <td class="px-4 py-2"><%= new Date(w.date).toISOString().slice(0,10) %></td>
+              <td class="px-4 py-2"><%= w.type %></td>
+              <td class="px-4 py-2"><%= w.duration %> min</td>
+              <td class="px-4 py-2 text-right space-x-2">
+                <a href="/workouts/<%= w.id %>/edit" class="text-blue-600 hover:underline">Edit</a>
+                <form method="post" action="/workouts/<%= w.id %>/delete" class="inline" onsubmit="return confirm('Delete this workout?');">
+                  <button class="text-red-600 hover:underline">Delete</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div>
+    <h2 class="text-lg font-semibold mb-3">Weekly Minutes</h2>
+    <div class="bg-white rounded shadow-sm border p-4">
+      <canvas id="minutesChart" height="180"></canvas>
+    </div>
+  </div>
+</section>
+
+<script>
+  const labels = <%- JSON.stringify(chart.labels) %>;
+  const data = <%- JSON.stringify(chart.data) %>;
+  const ctx = document.getElementById('minutesChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Minutes',
+        data,
+        borderColor: 'rgb(37, 99, 235)',
+        backgroundColor: 'rgba(37, 99, 235, 0.2)',
+        tension: 0.3,
+        fill: true
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+</script>
+
